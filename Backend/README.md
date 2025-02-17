@@ -178,3 +178,108 @@ curl -X POST http://localhost:3000/users/login \
   }
 }
 ```
+
+## Endpoint: `GET /users/profile`
+
+### Description
+
+This endpoint is used to get the profile of the logged-in user.
+
+### Request Headers
+
+- **Authorization:** Bearer token
+
+### Response
+
+- **200 OK**
+
+  - **Description:** User profile retrieved successfully.
+  - **Body:**
+    ```json
+    {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "socketId": "string (optional)"
+    }
+    ```
+
+- **401 Unauthorized**
+  - **Description:** Unauthorized access.
+  - **Body:**
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+### Example Request
+
+```bash
+curl -X GET http://localhost:3000/users/profile \
+-H "Authorization: Bearer <token>"
+```
+
+### Example Response
+
+```json
+{
+  "_id": "60d0fe4f5311236168a109ca",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "socketId": null
+}
+```
+
+## Endpoint: `GET /users/logout`
+
+### Description
+
+This endpoint is used to log out the current user.
+
+### Request Headers
+
+- **Authorization:** Bearer token
+
+### Response
+
+- **200 OK**
+
+  - **Description:** User logged out successfully.
+  - **Body:**
+    ```json
+    {
+      "message": "logout successfully"
+    }
+    ```
+
+- **401 Unauthorized**
+  - **Description:** Unauthorized access.
+  - **Body:**
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+### Example Request
+
+```bash
+curl -X GET http://localhost:3000/users/logout \
+-H "Authorization: Bearer <token>"
+```
+
+### Example Response
+
+```json
+{
+  "message": "logout successfully"
+}
+```
+````
