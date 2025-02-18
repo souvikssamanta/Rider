@@ -282,4 +282,108 @@ curl -X GET http://localhost:3000/users/logout \
   "message": "logout successfully"
 }
 ```
-````
+
+## Endpoint: `POST /captains/register`
+
+### Description
+
+This endpoint is used to register a new captain.
+
+### Request Body
+
+The request body should be a JSON object with the following structure:
+
+```json
+{
+  "fullname": {
+    "firstname": "string (min length: 3)",
+    "lastname": "string (optional, min length: 3)"
+  },
+  "email": "string (valid email format)",
+  "password": "string (min length: 6)",
+  "vehicle": {
+    "color": "string (min length: 3)",
+    "plate": "string (min length: 3)",
+    "capacity": "number (min: 1)",
+    "vehicleType": "string (one of: 'car', 'motorbike', 'auto')"
+  }
+}
+```
+
+### Response
+
+- **201 Created**
+
+  - **Description:** Captain registered successfully.
+  - **Body:**
+    ```json
+    {
+      "token": "string",
+      "captain": {
+        "_id": "string",
+        "fullname": {
+          "firstname": "string",
+          "lastname": "string"
+        },
+        "email": "string",
+        "vehicle": {
+          "color": "string",
+          "plate": "string",
+          "capacity": "number",
+          "vehicleType": "string"
+        }
+      }
+    }
+    ```
+
+- **400 Bad Request**
+  - **Description:** Validation error or captain already exists.
+  - **Body:**
+    ```json
+    {
+      "message": "string"
+    }
+    ```
+
+### Example Request
+
+```bash
+curl -X POST http://localhost:3000/captains/register \
+-H "Content-Type: application/json" \
+-d '{
+  "fullname": {
+    "firstname": "Jane",
+    "lastname": "Doe"
+  },
+  "email": "jane.doe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "red",
+    "plate": "XYZ123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}'
+```
+
+### Example Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "60d0fe4f5311236168a109ca",
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "XYZ123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
