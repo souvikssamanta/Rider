@@ -18,6 +18,6 @@ res.send("hello")
 app.use('/users',userRoutes);
 app.use('/captains',captainRoutes);
 module.exports=app
-
+    
 
 

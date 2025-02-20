@@ -16,9 +16,6 @@ const isUserExist=userModel.findOne({email:email})
 if(isUserExist){
 return res.status(400).json({message:"user already exists"});
 }
-
-
-
 const hashedPassword=await userModel.hashPassword(password)
 
 const user =await userService.createUser({
@@ -61,9 +58,9 @@ res.status(200).json(req.user)
 }
 //---logout---
 module.exports.logoutUser=async(req,res,next)=>{
-res.clearCookie('token');
 const token=req.cookies.token || req.headers.authorization.split(" ")[1];
 await blacklistTokenModel.create({token})
+res.clearCookie('token');
 res.status(200).json({message:"logout successfully"})
 }
 
