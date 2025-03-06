@@ -1,27 +1,62 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import  { useState } from 'react'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import axios from 'axios';
+import  { CaptainDataContext } from '../context/CaptainContext';
 function CaptainSignup() {
-  const [email,setEmail]=useState('')
+
+const [email,setEmail]=useState('')
 const [password,setPassword]=useState('')
 const [firstname,setFirstname]=useState('')
 const [lastname,setLastname]=useState('')
-const [userData,setUserData]=useState({})
-const submitHandler=(e)=>{
+const [vehicleColor, setVehicleColor] = useState('');
+const [vehiclePlate, setVehiclePlate] = useState('');
+const [vehicleCapacity, setVehicleCapacity] = useState('');
+const [vehicleType, setVehicleType] = useState('');
+const navigate=useNavigate()
+const[ captain ,setCaptain]=useContext(CaptainDataContext)
+
+const submitHandler=async (e)=>{
+ 
 e.preventDefault()
-setUserData({
+const captainData={
   fullname:{
   firstname:firstname,
   lastname:lastname},
-
   email:email,
   password:password,
-})
-console.log(userData)
+
+  vehicle:{
+    color:vehicleColor,
+    plate:vehiclePlate,
+    capacity:vehicleCapacity,
+    vehicleType:vehicleType
+  }
+
+}
+try{
+const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`,captainData)
+console.log(captainData)
+console.log(response)
+   if(response.status === 201){
+const data=response.data
+setCaptain(data.captain);
+localStorage.setItem('token',data.token);
+navigate('/captain-home')
+   }
+  }
+  catch(error){
+    console.log(error)
+  }
+ 
 setPassword('')
 setEmail('')
 setFirstname('')
-setLastname('');
+setLastname('')
+setVehicleColor('')
+setVehicleCapacity('')
+setVehiclePlate('')
+setVehicleType('')
 }
 
   return(
@@ -81,13 +116,57 @@ setLastname('');
           placeholder='password' 
           
           />
+          <h3 className='text-xl font-semibold mt-5'>Vehicle Information</h3>
+
+          <input
+            required
+            type="text"
+            value={vehicleColor}
+            onChange={(e) => setVehicleColor(e.target.value)}
+            className='bg-[#EEEEEE] rounded border w-full px-4 py-2 text-lg mt-2'
+            placeholder='Vehicle Color'
+          />
+
+          <input
+            required
+            type="text"
+            value={vehiclePlate}
+            onChange={(e) => setVehiclePlate(e.target.value)}
+            className='bg-[#EEEEEE] rounded border w-full px-4 py-2 text-lg mt-2'
+            placeholder='Vehicle Plate Number'
+          />
+
+          <input
+            required
+            type="number"
+            value={vehicleCapacity}
+            onChange={(e) => setVehicleCapacity(e.target.value)}
+            className='bg-[#EEEEEE] rounded border w-full px-4 py-2 text-lg mt-2'
+            placeholder='Vehicle Capacity'
+          />
+
+          <select
+            required
+            value={vehicleType}
+            onChange={(e) => setVehicleType(e.target.value)}
+            className='bg-[#EEEEEE] rounded border w-full px-4 py-2 text-lg mt-2'
+          >
+            <option value="" disabled>Select Vehicle Type</option>
+            <option value="car">Car</option>
+            <option value="auto">Auto</option>
+            <option value="motor">Motor</option>
+          </select>
+
+
+
+
         <button
         className='bg-blue-900 text-white text-xl w-full mt-12 rounded-2xl py-3 font-semibold'
         >Sign up</button>
         <p className='mt-8 text-xl font-medium mb-10'>Already have an account?<Link to="/captain-login" className='text-blue-800'> Login here</Link></p>
         </form>
         <div>
-         <p className='text-xl mt-28 font-lg'>By signing up, you agree to our <Link to="/terms" className='text-blue-800' underline>Terms of Service</Link>  and <Link to="/policy" className='text-blue-700' underline>Privacy Policy</Link>.</p>
+         <p className='text-xl mt-28 font-lg'>By signing up, you agree to our <Link to="/terms" className='text-blue-800'>Terms of Service</Link>  and <Link to="/policy" className='text-blue-700' >Privacy Policy</Link></p>
         </div>
       </div>
   )

@@ -11,7 +11,7 @@ if(!errors.isEmpty()){
 }
 const{fullname,email,password}=req.body;
 
-const isUserExist=userModel.findOne({email:email})
+const isUserExist=await userModel.findOne({email})
 
 if(isUserExist){
 return res.status(400).json({message:"user already exists"});
@@ -30,7 +30,7 @@ res.status(201).json({token,user})
 
 }
 //---login---
-module.exports .loginUser=async(req,res,next)=>{
+module.exports.loginUser=async(req,res,next)=>{
 const errors=validationResult(req);
 if(!errors.isEmpty()){
     return res.status(400).json({errors:errors.array()})

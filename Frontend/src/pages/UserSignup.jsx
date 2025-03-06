@@ -1,27 +1,47 @@
 import React from 'react'
 import  { useState } from 'react'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import axios from 'axios'
+import  { UserDataContext } from '../context/UserContext'
+import { useContext } from 'react'
+
 function UserSignup() {
 const [email,setEmail]=useState('')
 const [password,setPassword]=useState('')
 const [firstname,setFirstname]=useState('')
 const [lastname,setLastname]=useState('')
-const [userData,setUserData]=useState({})
-const submitHandler=(e)=>{
-e.preventDefault()
-setUserData({
-  fullname:{
-  firstname:firstname,
-  lastname:lastname},
+// const [userData,setUserData]=useState({})
 
-  email:email,
-  password:password,
-})
-console.log(userData)
-setPassword('')
+const navigate=useNavigate()
+
+const [user , setUser]=useContext(UserDataContext);
+
+const submitHandler=async(e)=>{
+e.preventDefault()
+const newUser={
+  fullname:{
+    firstname:firstname,
+    lastname:lastname},
+  
+    email:email,
+    password:password
+}
+try{
+const response =await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`,newUser)
+if(response.status===201){
+const data=response.data
+setUser(data.user)
+console.log(data.user)
+localStorage.setItem('token',data.token)
+navigate('/home')
+}
+}catch(error){
+console.log(error)
+}
+ setPassword('')
 setEmail('')
-setFirstname('')
-setLastname('');
+ setFirstname('')
+ setLastname('');
 }
 
   return(
@@ -30,7 +50,8 @@ setLastname('');
         <form 
         className='px-4 py-2 border rounded border-b-gray-700 ' 
         onSubmit={(e)=>{
-          submitHandler(e)       
+          submitHandler(e)  
+          console.log(e);     
         }}
         action="">
 <h3 className='text-xl font-semibold py-5  '>What's your name</h3>
@@ -87,7 +108,7 @@ setLastname('');
         <p className='mt-8 text-xl font-medium mb-10'>Already have an account?<Link to="/login" className='text-blue-800'> Login here</Link></p>
         </form>
         <div>
-         <p className='text-xl mt-28 font-lg'>By signing up, you agree to our <Link to="/terms" className='text-blue-800' underline>Terms of Service</Link>  and <Link to="/policy" className='text-blue-700' underline>Privacy Policy</Link>.</p>
+         <p className='text-xl mt-28 font-lg'>By signing up, you agree to our <Link to="/terms" className='text-blue-800' >Terms of Service</Link>  and <Link to="/policy" className='text-blue-700' >Privacy Policy</Link>.</p>
         </div>
       </div>
   )
