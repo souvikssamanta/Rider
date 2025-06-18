@@ -1,11 +1,13 @@
-const captainModel = require('../models/captain.model');
-const captainService=require('../services/captain.service')
-const {validationResult}=require("express-validator")
-const blacklistTokenModel=require('../models/blacklist.token')
+//import {toast} from 'react-hot-toast'
+const captainModel = require("../models/captain.model");
+const captainService = require("../services/captain.service");
+const { validationResult } = require("express-validator");
+const blacklistTokenModel = require("../models/blacklist.token");
 
 module.exports.registerCaptain=async(req,res,next)=>{
 const errors=validationResult(req);
-    if(!errors.isEmpty()){
+    if(!errors.isEmpty()){  
+        
         return res.status(400).json({errors:errors.array()})
     }
     const{fullname,email,password,vehicle}=req.body;
@@ -43,6 +45,7 @@ module.exports.loginCaptain=async(req,res,next)=>{
     const{email,password}=req.body;
     const captain=await captainModel.findOne({email}).select("+password");
     if(!captain){
+      
         return res.status(400).json({message:"Invalid email or password"})
     }
     const isValid=await captain.comparePassword(password)

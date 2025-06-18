@@ -387,3 +387,57 @@ curl -X POST http://localhost:3000/captains/register \
   }
 }
 ```
+<!-- for get-fare -->
+
+...
+## Endpoint: `GET /get-fare`
+
+### Description
+
+This endpoint calculates the fare for a ride based on the provided pickup and destination locations. The fare is computed for three types of vehicles (`auto`, `car`, and `motorcycle`).
+
+### Request Headers
+
+- **Authorization:** Bearer token (required)
+
+### Query Parameters
+
+- **pickup:** string (minimum length: 3) – The starting location of the ride.
+- **destination:** string (minimum length: 3) – The destination location of the ride.
+
+### Response
+
+- **200 OK**
+
+  - **Description:** The fare for different vehicle types is returned.
+  - **Body:**
+    ```json
+    {
+      "auto": "number",
+      "car": "number",
+      "motorcycle": "number"
+    }
+    ```
+
+- **400 Bad Request**
+
+  - **Description:** Validation error or missing parameters.
+  - **Body:**
+    ```json
+    {
+      "errors": [
+        {
+          "msg": "string",
+          "param": "string",
+          "location": "string"
+        }
+      ]
+    }
+    ```
+...
+
+
+
+
+
+

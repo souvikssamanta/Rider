@@ -1,28 +1,35 @@
-import React from 'react'
-function LocationSearchPanel({setTransport}) {
-  const locations=[
-"24c,Mckv Institute of Engineering,howrah,GT road",
-"24c,Mckv Institute of Engineering,howrah,GT road",
-"24c,Mckv Institute of Engineering,howrah,GT road"
+import React from 'react';
 
-  ]
-  return (
-    <div>{
-    locations.map(function(elem,idx){
-      return  <div key={idx} 
-        onClick={()=>{
-              setTransport(true)
-              
-            }} 
-      className='flex justify-items-start mt-4 '>
-      <h4 className='text-2xl text-center'><i class="ri-map-pin-line"></i></h4>   
-     <h4 className='text-xl font-semibold'>{elem}</h4>
-   </div>
-    })
-    }
-</div>
-    
-  )
+const LocationSearchPanel=({suggestions, setPickup,setDestination, setTransport,setPannelOpen,activeField }) =>{
+const handleSuggestionClick = (suggestion) => {
+if(activeField === 'pickup') {
+setPickup(suggestion);}
+else if(activeField === 'destination') {
+setDestination(suggestion);}
 }
 
-export default LocationSearchPanel
+
+  return (
+    <div>
+
+      {suggestions.map((elem,idx) => (
+        <div
+          key={idx}
+          onClick={() => {
+            handleSuggestionClick(elem);
+
+           
+          }}
+          className='flex border-2 rounded-xl justify-items-start mt-4 max-w-2xl'
+        >
+          <h4 className='text-xl ml-1 mr-1  text-center'>
+            <i className="ri-map-pin-line"></i>
+          </h4>
+          <h4 className='text-md font-semibold'>{elem}</h4>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default LocationSearchPanel;

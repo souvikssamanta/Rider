@@ -1,33 +1,27 @@
-import React, { createContext } from 'react'
-import { useState } from 'react'
-export const CaptainDataContext=createContext()
-function CaptainContext({children}) {
+import React, { createContext } from "react";
+import { useState } from "react";
+export const CaptainDataContext = createContext();
+function Captaincontext({ children }) {
+  const [captain, setCaptain] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-const [captain,setCaptain]=useState({
-    email:'',
-    fullname:{
-        firstname:'',
-        lastname:'',
-    },
-    password:'',
-    vehice:{
-        color:'',
-        plate:'',
-        capacity:'',
-        vehicleType:''
-    }
-})
+  // const updateCaptain = (captainData) => {
+  //   setCaptain(captainData);
+  // };
+
+  const value = {
+    captain,
+    setCaptain,
+    isLoading,
+    setIsLoading,
+    //updateCaptain,
+  };
 
   return (
-    <div>
-
-        <CaptainDataContext.Provider value={[captain,setCaptain]}>  
-            {children}
-        </CaptainDataContext.Provider>
-
-      
-    </div>
-  )
+    <CaptainDataContext.Provider value={value}>
+      {children}
+    </CaptainDataContext.Provider>
+  );
 }
 
-export default CaptainContext
+export default Captaincontext;

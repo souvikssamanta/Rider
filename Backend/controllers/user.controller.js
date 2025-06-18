@@ -28,15 +28,15 @@ const user =await userService.createUser({
 const token=user.generateAuthtoken();
 res.status(201).json({token,user})
 
-}
+} 
 //---login---
 module.exports.loginUser=async(req,res,next)=>{
 const errors=validationResult(req);
 if(!errors.isEmpty()){
-    return res.status(400).json({errors:errors.array()})
+return res.status(400).json({errors:errors.array()})
 }
 const{email,password}=req.body;
-// only return password to user
+//only return password to user
 const user=await userModel.findOne({email}).select("+password");
 
 if(!user){
