@@ -1,4 +1,10 @@
 const userModel=require("../models/user.model");
+
+
+
+
+
+
 module.exports.createUser=async({
     firstname,lastname,email,password
 })=>{
@@ -17,7 +23,6 @@ console.log(user);
 return user;
 
 }
-
 
 
 

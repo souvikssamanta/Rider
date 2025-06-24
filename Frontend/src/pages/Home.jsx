@@ -13,8 +13,8 @@ import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../components/LiveTracking";
-import logo from '../assets/RideLogo.png'
-import {toast} from 'react-hot-toast'
+import logo from "../assets/RideLogo.png";
+import { toast } from "react-hot-toast";
 function Home() {
   //----usestate functions-----
   const [pickup, setPickup] = useState("");
@@ -29,8 +29,8 @@ function Home() {
   const [activeField, setActiveField] = useState(null); // 'pickup' or 'destination'
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
-  const[ride, setRide]=useState(null);
-  const navigate=useNavigate()
+  const [ride, setRide] = useState(null);
+  const navigate = useNavigate();
   //---useref functions-----
   const panelRef = useRef(null);
   const pannelcloseRef = useRef(null);
@@ -40,10 +40,9 @@ function Home() {
   const waitforDriverRef = useRef(null);
 
   const [socket] = useContext(SocketContext);
-  const {user} = useContext(UserDataContext); // Correctly destructure the array
-//console.log(user);
+  const { user } = useContext(UserDataContext); // Correctly destructure the array
+  //console.log(user);
   useEffect(() => {
-
     if (user && user._id) {
       socket.emit("join", { userType: "user", userId: user._id });
     } else {
@@ -53,19 +52,14 @@ function Home() {
 
   socket.on("ride-confirmed", (ride) => {
     setWaitforDriver(true);
-    setDriver(false)
-   setRide(ride);
+    setDriver(false);
+    setRide(ride);
   });
 
   socket.on("ride-started", (ride) => {
     setWaitforDriver(false);
-    navigate('/riding',{state:{ride}})
-    
+    navigate("/riding", { state: { ride } });
   });
-
-
-
-
 
   //----submithandler----
   const submitHandler = (e) => {
@@ -262,10 +256,9 @@ function Home() {
   }
 
   async function createRide() {
-    if (!user ) {
+    if (!user) {
       // console.error("Cannot create ride: User is not defined or missing _id.");
       return toast.error("User information is missing. Please log in again.");
-      
     }
 
     try {
@@ -282,10 +275,9 @@ function Home() {
           },
         }
       );
-      if(response.status==201){
-      toast.success("Ride created successfully");
-    }
-    
+      if (response.status == 201) {
+        toast.success("Ride created successfully");
+      }
     } catch (error) {
       console.error("Error creating ride:", error);
       toast.error("Failed to create ride. Please try again.");
@@ -293,23 +285,15 @@ function Home() {
     }
   }
 
-
   return (
-    <div className="h-screen relative overflow-hidden max-w-2xl ">
-      <div className=" h-full w-full absolute">
-       <LiveTracking></LiveTracking>
+    <div className="h-screen relative flex flex-col justify-center items-center overflow-hidden max-w-2xl ">
+      <div className=" h-[58%] w-full absolute">
+        <LiveTracking></LiveTracking>
       </div>
-      {/* <div className="bg-green-600 h-screen w-full ">
-        <img
-          className=" h-screen w-full "
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt=""
-        />
-      </div> */}
-
-      <div className="flex flex-col justify-end absolute top-0 w-full h-screen  ">
-        <div className="h-[42%] bg-white flex flex-row py-2 relative rounded ">
-          <div>
+      
+      <div className="flex flex-col  justify-end absolute top-0 w-full h-screen  ">
+        <div className="h-[42%] flex bg-amber-400 flex-col py-2 w-full justify-center items-center relative rounded ">
+          {/* <div> */}
             <h4 className="text-2xl text-center font-semibold">Find a trip</h4>
 
             {/* pannel of location close */}
@@ -323,8 +307,7 @@ function Home() {
               <i className="ri-arrow-down-s-line"></i>
             </h5>
 
-            <form
-             
+            <form className="flex flex-col items-center justify-center w-full h-full"
               onSubmit={(e) => {
                 submitHandler(e);
               }}
@@ -378,14 +361,14 @@ function Home() {
 
             <button
               onClick={findTrip}
-              className="bg-black text-white w-40 ml-20 py-1 mt-6 rounded-lg text-lg  hover:ring-3 hover:ring-blue-300"
+              className="bg-black text-white w-40  py-1 mt-6 rounded-lg text-lg  hover:ring-3 hover:ring-blue-300"
             >
               Find a ride
             </button>
-          </div>
-          <div className="bg-amber-600 h-full w-2/3 mr-4 rounded sm:opacity-0 md:opacity-100">
+          {/* </div> */}
+          {/* <div className="bg-amber-600 h-full w-2/3 mr-4 rounded sm:opacity-0 md:opacity-100">
             <video src=""></video>
-          </div>
+          </div> */}
         </div>
         {/* ------location search pannel----- */}
 
@@ -405,7 +388,10 @@ function Home() {
         </div>
         {/* ------vehicle pannel---- */}
 
-        <div ref={vehicleRef} className="h-0 rounded-2xl bg-[#FFFFFF] absolute w-full">
+        <div
+          ref={vehicleRef}
+          className="h-0 rounded-2xl bg-[#FFFFFF] absolute w-full"
+        >
           <TransportOption
             setVehicleType={setVehicleType}
             setConfirmride={setConfirmride}
@@ -441,7 +427,10 @@ function Home() {
 
         {/* waiting for driver */}
 
-        <div ref={waitforDriverRef} className="h-full w-full flex justify-center absolute bg-white">
+        <div
+          ref={waitforDriverRef}
+          className="h-full w-full flex justify-center absolute bg-white"
+        >
           <WaitforDriver
             setWaitforDriver={setWaitforDriver}
             ride={ride}

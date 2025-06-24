@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { SocketContext } from '../context/SocketContext'
 import {useContext} from 'react'
+import LiveTracking from '../components/LiveTracking'
+import Payment from './Payment'
 const Riding = () => {
   const navigate=useNavigate()
   const [socket] = useContext(SocketContext);
@@ -24,11 +26,7 @@ const Riding = () => {
       </Link>
       {/* ----image section-- */}
       <div className="h-2/3">
-        <img
-          className="h-full w-full object-cover"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt=""
-        />
+        <LiveTracking></LiveTracking>
       </div>
 
       <div
@@ -36,35 +34,14 @@ const Riding = () => {
          border-2 border-black rounded-2xl py-4
         px-2 "
       >
-        {/* car details */}
-
-        {/* <div className='flex  gap-5 justify-between'>
-           
-            <div>
-                <p className='text-xl'>Car no:</p>
-                 <h4 className='text-xl font-semibold'>{ride.captain.vehicle.plate}</h4>
-            </div>
-            <div>
-                <p className='text-xl'>Car name:</p>
-            <h3 className='text-xl font-semibold'>Harrier</h3>
-            </div>
-
-        </div> */}
-
-        {/* destination and payment */}
-        {/* <div>
-      <p className='text-2xl'>Destination</p>
-      <p className='text-2xl font-bold mt-3'><i className="ri-map-pin-2-line text-2xl"></i>{ride.destination}</p>
-      </div>
-        */}
-        <div className='text-center'>
+        <div className="text-center">
           <h1 className="text-xl">Fare</h1>
           <p className="text-xl font-bold mt-3 bg-amber-100 inline-block rounded-xl px-3">
             <i className="ri-money-rupee-circle-line text-xl"></i>
             {ride.fare}
           </p>
         </div>
-        <p className='font-semibold'>Choose any mode</p>
+        <p className="font-semibold">Choose any mode</p>
         <div className="flex gap-5 mt-5">
           <Link
             to="/home"
@@ -77,9 +54,12 @@ const Riding = () => {
             to="/payment"
             className="bg-green-500 py-1 text-xl w-30 text-center rounded-xl "
           >
-           online
+            online
           </Link>
         </div>
+      </div>
+      <div className='h-0'>
+        <Payment fare={ride.fare}></Payment>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 const express=require("express")
 const router=express.Router()
-const {body}=require("express-validator");
+const {body, check}=require("express-validator");
 const userController=require("../controllers/user.controller")
+const { newPayment, checkPaymentStatus } = require("../controllers/payment.controller");
 const authMiddleware=require("../middlewares/auth.middlewares")
 // ---REGISTER----
 router.post('/register',[
@@ -21,7 +22,6 @@ body("password").isLength({min:6}).withMessage("password must have 6 characters"
 router.get("/profile",authMiddleware.authUser,userController.getProfile);
 //--LOGOUT---
 router.get("/logout",authMiddleware.authUser,userController.logoutUser)
-
 
 
 module.exports=router

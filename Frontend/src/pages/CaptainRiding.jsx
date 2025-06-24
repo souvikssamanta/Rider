@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import gsap from 'gsap'
 import LiveTracking from '../components/LiveTracking'
-// import LiveTracking from '../components/LiveTracking'
-
+import Payment from './Payment'
+ 
 const CaptainRiding = () => {
 
     const [ finishRidePanel, setFinishRidePanel ] = useState(false)
@@ -61,7 +61,7 @@ if(response.request.status===200){
         </div>
 
         <div className="h-screen w-screen">
-        
+        <LiveTracking></LiveTracking>
         </div>
 
         <div
@@ -92,10 +92,7 @@ if(response.request.status===200){
             finshRide={finshRide}
           />
         </div>
-
-        {/* <div className='h-screen fixed w-screen top-0 z-[-1]'>
-                <LiveTracking />
-            </div> */}
+          
       </div>
     );
 }

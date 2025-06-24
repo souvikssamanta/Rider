@@ -36,19 +36,7 @@ props.setRidepopup(false);
         >
           Confirm your ride!
         </h1>
-        {/* pickup location and destination */}
-
-        {/* <div className="flex gap-13">
-          <div>
-            <p className="text-lg">Pickup location</p>
-            <p className="text-md font-bold mt-2">{props.ride?.pickup}</p>
-          </div>
-
-          <div>
-            <p className="text-lg ">Destination</p>
-            <p className="text-md font-bold mt-2">{props.ride?.destination}</p>
-          </div>
-        </div> */}
+        
 
         {/* -----fare and passengers---- */}
         <div className="flex ring-2 rounded-xl py-2 px-2 justify-between">

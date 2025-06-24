@@ -9,6 +9,7 @@ import gsap from "gsap";
 import ConfirmRidepopup from "../components/ConfirmRidepopup";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
+import LiveTracking from "../components/LiveTracking";
 
 function CaptainHome() {
   const [socket] = useContext(SocketContext);
@@ -123,11 +124,7 @@ function CaptainHome() {
       </div>
       {/* ----image section-- */}
       <div className="h-1/2">
-        <img
-          className="h-full w-full object-cover"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt=""
-        />
+        <LiveTracking></LiveTracking>
       </div>
 
       <div className="h-1/2 fixed  w-full rounded-t-xl  ">
