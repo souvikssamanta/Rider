@@ -287,7 +287,7 @@ function Home() {
 
   return (
     <div className="h-screen relative flex flex-col justify-center items-center overflow-hidden max-w-2xl ">
-      <div className=" h-[58%] w-full absolute">
+      <div className=" h-[100%] w-full absolute">
         <LiveTracking></LiveTracking>
       </div>
       
