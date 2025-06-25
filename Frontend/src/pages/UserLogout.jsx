@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+const url = "https://uber-ouze.onrender.com";
 const UserLogout = () => {
 
 const token=localStorage.getItem('token')
 const navigate=useNavigate()
-axios.get(`${import.meta.env.VITE_BASE_URL}/users/logout`,{
+axios.get(`${url}/users/logout`,{
     headers:{
         authorization:`Bearer ${token}`
     }

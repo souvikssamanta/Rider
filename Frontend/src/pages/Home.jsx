@@ -31,6 +31,7 @@ function Home() {
   const [vehicleType, setVehicleType] = useState(null);
   const [ride, setRide] = useState(null);
   const navigate = useNavigate();
+  const url = "https://uber-ouze.onrender.com";
   //---useref functions-----
   const panelRef = useRef(null);
   const pannelcloseRef = useRef(null);
@@ -73,7 +74,7 @@ function Home() {
       const input = e.target.value;
       if (input && input.length > 2) {
         const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`,
+          `${url}/maps/get-suggestions`,
           {
             params: {
               input: input,
@@ -102,7 +103,7 @@ function Home() {
       const input = e.target.value;
       if (input && input.length > 2) {
         const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`,
+          `${url}/maps/get-suggestions`,
           {
             params: {
               input: input,

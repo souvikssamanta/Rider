@@ -10,7 +10,7 @@ import ConfirmRidepopup from "../components/ConfirmRidepopup";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import LiveTracking from "../components/LiveTracking";
-
+const url = "https://uber-ouze.onrender.com";
 function CaptainHome() {
   const [socket] = useContext(SocketContext);
   const {captain} = useContext(CaptainDataContext);
@@ -58,7 +58,7 @@ function CaptainHome() {
   
   async function confirmRide() {
   
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`,{
+    const response = await axios.post(`${url}/rides/confirm`,{
         rideId:ride?._id,
         captainId: captain._id,
       },

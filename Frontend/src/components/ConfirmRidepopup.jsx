@@ -5,10 +5,10 @@ const ConfirmRidepopup = (props) => {
 const [otp,setOtp]=useState("");
 const navigate = useNavigate();
 const submitHandler=async(e)=>{
-
+const url = "https://uber-ouze.onrender.com";
 e.preventDefault()
 
-const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`,{
+const response=await axios.get(`${url}/rides/start-ride`,{
   params:{rideId: props.ride?._id,
   otp:otp,
   },

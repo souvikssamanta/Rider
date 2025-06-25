@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+const url = "https://uber-ouze.onrender.com";
 const UserProtectWrapper = ({ children }) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const UserProtectWrapper = ({ children }) => {
       navigate("/login");
     }
 
-    axios.get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
+    axios.get(`${url}/users/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
