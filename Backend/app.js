@@ -10,7 +10,12 @@ const cookieParser=require("cookie-parser")
 const mapsRoutes=require('./routes/maps.routes')
 const rideRoutes=require('./routes/ride.routes.jsx')
 connectToDb();
-app.use(cors())
+app.use(
+  cors({
+    origin: "*", 
+    credentials: true,
+  })
+);
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
