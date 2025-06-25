@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useRef } from "react";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanel from "../components/LocationSearchPanel";
-import TransportOption from "../components/transportOption";
+import TransportOption from "../components/TransportOption";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingforDriver from "../components/LookingforDriver";
 import WaitforDriver from "../components/WaitforDriver";
