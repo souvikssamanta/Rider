@@ -18,7 +18,7 @@ const [vehicleCapacity, setVehicleCapacity] = useState('');
 const [vehicleType, setVehicleType] = useState('');
 const navigate=useNavigate()
 const{captain ,setCaptain}=useContext(CaptainDataContext)
-
+// const url = "https://uber-ouze.onrender.com";
 const submitHandler=async (e)=>{
  
 e.preventDefault()
@@ -38,7 +38,10 @@ const captainData={
 
 }
 try{
-const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`,captainData)
+const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/captains/register`,
+  captainData
+);
 console.log(captainData)
 console.log(response)
    if(response.status === 201){

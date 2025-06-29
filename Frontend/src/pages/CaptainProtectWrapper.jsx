@@ -15,7 +15,7 @@ const CaptainProtectWrapper = ({ children }) => {
     }
 
     axios
-      .get(`${import.meta.env.VITE_BASE_URL}/captains/profile`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/captains/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

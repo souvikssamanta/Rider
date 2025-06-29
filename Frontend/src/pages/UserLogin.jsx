@@ -6,7 +6,7 @@ import Logo from '../assets/RideLogo.png'
 import axios from 'axios'
 import { GoogleLogin } from "@react-oauth/google";
 import {toast} from 'react-hot-toast'
-const url = "https://uber-ouze.onrender.com";
+
 function UserLogin() {
 
   const [email,setEmail] =useState('');
@@ -23,7 +23,10 @@ const UserData={
   password:password
 }
 try{
-const response=await axios.post(`${url}/users/login`,UserData)
+const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URLl}/users/login`,
+  UserData
+);
 if(response.status === 200){
   const data=response.data
   console.log(data)

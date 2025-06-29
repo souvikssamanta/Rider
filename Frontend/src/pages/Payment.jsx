@@ -8,8 +8,9 @@ import { useContext } from 'react'
 const Payment = (props) => {
 
 const fare=props.fare;
-const response=axios.post(`${import.meta.env.VITE_BASE_URL}/payment`,{
-    amount: fare })
+const response = axios.post(`${import.meta.env.VITE_BACKEND_URL}/payment`, {
+  amount: fare,
+});
 
 if(response.status===200){
   console.log("Payment successful");

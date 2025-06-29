@@ -21,7 +21,10 @@ const CaptainData={
 }
 
 try{
-const response= await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`,CaptainData)
+const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/captains/login`,
+  CaptainData
+);
 console.log(response.status);
 if(response.status===200){
 const data=response.data

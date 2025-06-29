@@ -12,7 +12,7 @@ const [password,setPassword]=useState('')
 const [firstname,setFirstname]=useState('')
 const [lastname,setLastname]=useState('')
 // const [userData,setUserData]=useState({})
-const url = "https://uber-ouze.onrender.com";
+
 const navigate=useNavigate()
 
 const {user , setUser}=useContext(UserDataContext);
@@ -28,7 +28,10 @@ const newUser={
     password:password
 }
 try{
-const response =await axios.post(`${url}/users/register`,newUser)
+const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/users/register`,
+  newUser
+);
 if(response.status===201){
 const data=response.data
 setUser(data.user)

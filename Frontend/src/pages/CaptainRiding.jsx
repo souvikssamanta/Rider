@@ -32,15 +32,18 @@ const CaptainRiding = () => {
     }, [ finishRidePanel ])
 
 async function finshRide(){
-const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/finish-ride`,{
-rideId:rideData?._id,
-},
+const response = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/rides/finish-ride`,
+  {
+    rideId: rideData?._id,
+  },
 
-{
-    headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
-    }
-})
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  }
+);
 if(response.request.status===200){  
     
      navigate('/captain-home',)
